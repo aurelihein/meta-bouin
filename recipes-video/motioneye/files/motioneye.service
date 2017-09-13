@@ -1,0 +1,11 @@
+[Unit]
+Description=motionEye Server
+After=streameye.service
+
+[Service]
+ExecStartPre=/etc/init.d/motioneye.sh
+ExecStart=/usr/bin/meyectl startserver -c /etc/motion/motioneye.conf
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
