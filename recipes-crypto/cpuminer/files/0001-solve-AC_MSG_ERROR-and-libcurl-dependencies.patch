@@ -1,0 +1,43 @@
+From 9e734529093b44109f3a1dccac5e438c6f21cf61 Mon Sep 17 00:00:00 2001
+From: Aurelien BOUIN <a.bouin@gmail.com>
+Date: Wed, 13 Sep 2017 09:57:51 +0200
+Subject: [PATCH] solve AC_MSG_ERROR, and libcurl dependencies
+
+---
+ Makefile.am  | 4 ++--
+ configure.ac | 5 +++--
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index f6d194d..e7a10aa 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -31,7 +31,7 @@ minerd_SOURCES += sha2-ppc.S scrypt-ppc.S
+ endif
+ endif
+ minerd_LDFLAGS	= $(PTHREAD_FLAGS)
+-minerd_LDADD	= @LIBCURL@ @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@
++minerd_LDADD	= @LIBCURL_LIBS@ @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@
+ minerd_CFLAGS	= -fno-strict-aliasing
+-minerd_CPPFLAGS	= @LIBCURL_CPPFLAGS@ $(JANSSON_INCLUDES) $(PTHREAD_FLAGS)
++minerd_CPPFLAGS	= @LIBCURL_CFLAGS@ $(JANSSON_INCLUDES) $(PTHREAD_FLAGS)
+ 
+diff --git a/configure.ac b/configure.ac
+index 38bb465..9570bb1 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -120,8 +120,9 @@ else
+ 	JANSSON_LIBS=-ljansson
+ fi
+ 
+-LIBCURL_CHECK_CONFIG(, 7.15.2, ,
+-  [AC_MSG_ERROR([Missing required libcurl >= 7.15.2])])
++#LIBCURL_CHECK_CONFIG(, 7.15.2, ,
++#  [AC_MSG_ERROR([Missing required libcurl >= 7.15.2])])
++PKG_CHECK_MODULES(LIBCURL, libcurl, , exit 1)
+ 
+ AC_SUBST(JANSSON_LIBS)
+ AC_SUBST(PTHREAD_FLAGS)
+-- 
+2.7.4
+

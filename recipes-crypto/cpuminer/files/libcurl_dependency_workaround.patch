@@ -1,0 +1,28 @@
+diff -urN git/configure.ac git-updated/configure.ac
+--- git/configure.ac	2014-10-31 17:19:46.394759326 +0100
++++ git-updated/configure.ac	2014-10-31 17:20:12.142758564 +0100
+@@ -116,8 +116,10 @@
+ 	JANSSON_LIBS=-ljansson
+ fi
+ 
+-LIBCURL_CHECK_CONFIG(, 7.15.2, ,
+-  [AC_MSG_ERROR([Missing required libcurl >= 7.15.2])])
++#LIBCURL_CHECK_CONFIG(, 7.15.2, ,
++#  [AC_MSG_ERROR([Missing required libcurl >= 7.15.2])])
++
++PKG_CHECK_MODULES(LIBCURL, libcurl, , exit 1)
+ 
+ AC_SUBST(JANSSON_LIBS)
+ AC_SUBST(PTHREAD_FLAGS)
+diff -urN git/Makefile.am git-updated/Makefile.am
+--- git/Makefile.am	2014-10-31 17:19:46.394759326 +0100
++++ git-updated/Makefile.am	2014-10-31 17:20:08.810758662 +0100
+@@ -30,6 +30,6 @@
+ endif
+ endif
+ minerd_LDFLAGS	= $(PTHREAD_FLAGS)
+-minerd_LDADD	= @LIBCURL@ @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@
+-minerd_CPPFLAGS = @LIBCURL_CPPFLAGS@
++minerd_LDADD	= @LIBCURL_LIBS@ @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@
++minerd_CPPFLAGS = @LIBCURL_CFLAGS@
+
