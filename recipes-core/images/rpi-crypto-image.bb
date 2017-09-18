@@ -10,6 +10,7 @@ IMAGE_INSTALL += "\
     iotop \
     tree \
     cpuminer \
+    verge \
     "
 
 #pyro now use dnf
