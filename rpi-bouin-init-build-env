@@ -4,3 +4,8 @@ TEMPLATECONF="$(pwd)/sources/meta-rpi-bouin/conf"
 export TEMPLATECONF
 
 . ./sources/poky/oe-init-build-env $1
+
+if [ -n "$DISTRO" ]
+then
+        sed -e "s,DISTRO ?= \"poky\",DISTRO ?= '$DISTRO',g" -i conf/local.conf
+fi

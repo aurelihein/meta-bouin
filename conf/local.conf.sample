@@ -257,3 +257,11 @@ VIRTUAL-RUNTIME_initscripts = ""
 INHERIT += "image-buildinfo"
 IMAGE_BUILDINFO_VARS = "DISTRO DISTRO_VERSION MACHINE"
 
+#Rpi GPU memory HANDLE :
+GPU_MEM_256 = "128"
+GPU_MEM_512 = "196"
+GPU_MEM_1024 = "396"
+
+#Add Package Manager to Build
+#EXTRA_IMAGE_FEATURES += " package-management "
+#IMAGE_INSTALL_append=" python-smartrpm "
