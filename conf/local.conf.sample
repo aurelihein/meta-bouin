@@ -268,7 +268,7 @@ IMAGE_INSTALL_append=" python-smartrpm "
 
 ##if rpi native:
 PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-rdk"
-PACKAGECONFIG_pn-wpebackend-rdk = "rpi"
+PACKAGECONFIG_pn-wpebackend-rdk = "rpi libinput"
 ##else
 #PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-fdo"
 ##endif

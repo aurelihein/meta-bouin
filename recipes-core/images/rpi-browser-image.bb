@@ -12,7 +12,7 @@ IMAGE_FEATURES += "ssh-server-dropbear splash"
 #Not taken into effect here !
 ##if rpi native:
 #PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-rdk"
-#PACKAGECONFIG_pn-wpebackend-rdk = "rpi"
+#PACKAGECONFIG_pn-wpebackend-rdk = "rpi libinput"
 ##else
 #PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-fdo"
 ##endif
@@ -27,8 +27,10 @@ IMAGE_INSTALL += "\
     htop \
     iotop \
     tree \
+    libinput \
     wpewebkit cog \
-    kbd keymaps \
+    kbd keymaps xkeyboard-config \
+    libx11 libx11-locale \
     "
 #For test purpose add the following IMAGE_INSTALL_append
 #BUT you admit to add commercial as falloiwing into conf/local.conf
