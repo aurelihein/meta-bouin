@@ -1,7 +1,13 @@
 #Image that embed starting point for crypto
 
-# Base this image on rpi-basic-image
-include recipes-core/images/rpi-basic-image.bb
+include recipes-core/images/core-image-base.bb
+
+
+COMPATIBLE_MACHINE = "^rpi$"
+
+SPLASH = "psplash-raspberrypi"
+
+IMAGE_FEATURES += "ssh-server-dropbear splash"
 
 #Not taken into effect here !
 ##if rpi native:
@@ -17,12 +23,19 @@ IMAGE_FEATURES += " package-management "
 IMAGE_FEATURES += " ssh-server-dropbear hwcodecs "
 
 IMAGE_INSTALL += "\
+    kernel-modules \
     htop \
     iotop \
     tree \
     wpewebkit cog \
     kbd keymaps \
     "
+#For test purpose add the following IMAGE_INSTALL_append
+#BUT you admit to add commercial as falloiwing into conf/local.conf
+#LICENSE_FLAGS_WHITELIST += "commercial"
+IMAGE_INSTALL_append = " packagegroup-rpi-test"
+#you can test with :
+#omxplayer -p -p hdmi /usr/share/movies/big_buck_bunny_1080p_surround.avi
 
 #sumo now use dnf
 #OWN_REPO_URL ?= "http://aurelihein.ddns.net:8765/yocto/crypto/rpm/"
