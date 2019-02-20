@@ -3,9 +3,10 @@
 # Base this image on rpi-basic-image
 include recipes-core/images/rpi-basic-image.bb
 
+#Not taken into effect here !
 ##if rpi native:
-PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-rdk"
-PACKAGECONFIG_pn-wpebackend-rdk = "rpi"
+#PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-rdk"
+#PACKAGECONFIG_pn-wpebackend-rdk = "rpi"
 ##else
 #PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-fdo"
 ##endif

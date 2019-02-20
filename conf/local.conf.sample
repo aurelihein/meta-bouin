@@ -262,6 +262,13 @@ GPU_MEM_256 = "128"
 GPU_MEM_512 = "196"
 GPU_MEM_1024 = "396"
 
-#Add Package Manager to Build
-#EXTRA_IMAGE_FEATURES += " package-management "
-#IMAGE_INSTALL_append=" python-smartrpm "
+#Add Package Manager to Build : dnf
+EXTRA_IMAGE_FEATURES += " package-management "
+IMAGE_INSTALL_append=" python-smartrpm "
+
+##if rpi native:
+PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-rdk"
+PACKAGECONFIG_pn-wpebackend-rdk = "rpi"
+##else
+#PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-fdo"
+##endif
