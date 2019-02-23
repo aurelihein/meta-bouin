@@ -272,3 +272,10 @@ PACKAGECONFIG_pn-wpebackend-rdk = "rpi libinput"
 ##else
 #PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-fdo"
 ##endif
+
+#DNF special configuration
+#Do not forget to do :
+#bitbake package-index
+#Launch twisted under the build dir :
+#twistd -p 8080 -n web --path tmp/deploy/rpm
+PACKAGE_FEED_URIS = "http://192.168.1.101:8080"

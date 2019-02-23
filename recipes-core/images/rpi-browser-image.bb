@@ -31,22 +31,21 @@ IMAGE_INSTALL += "\
     wpewebkit cog \
     kbd keymaps xkeyboard-config \
     libx11 libx11-locale \
+    gstreamer1.0-omx \
     "
 #For test purpose add the following IMAGE_INSTALL_append
 #BUT you admit to add commercial as falloiwing into conf/local.conf
 #LICENSE_FLAGS_WHITELIST += "commercial"
 IMAGE_INSTALL_append = " packagegroup-rpi-test"
-#you can test with :
-#omxplayer -p -p hdmi /usr/share/movies/big_buck_bunny_1080p_surround.avi
 
-#sumo now use dnf
-#OWN_REPO_URL ?= "http://aurelihein.ddns.net:8765/yocto/crypto/rpm/"
-#
-#add_custom_smart_config() {
-#    smart --data-dir=${IMAGE_ROOTFS}/var/lib/smart channel --yes --add all type=rpm-md baseurl=${OWN_REPO_URL}/all
-#   smart --data-dir=${IMAGE_ROOTFS}/var/lib/smart channel --yes --add cortexa7hf_neon_vfpv4 type=rpm-md baseurl=${OWN_REPO_URL}/cortexa7hf_neon_vfpv4
-#   smart --data-dir=${IMAGE_ROOTFS}/var/lib/smart channel --yes --add raspberrypi3 type=rpm-md baseurl=${OWN_REPO_URL}/raspberrypi3
-#}
-#ROOTFS_POSTPROCESS_COMMAND =+ "add_custom_smart_config ;"
+#you can test with :
+#omxplayer -p hdmi /usr/share/movies/big_buck_bunny_1080p_surround.avi
+#or
+#gst-launch-1.0 -v filesrc location=10_24fps_5M_nb-fastdecode.mp4 ! queue ! omxh264dec ! glimagesink
+
+#You can test WPE browser :
+#export WPE_BCMRPI_TOUCH=1
+#export WPE_BCMRPI_CURSOR=1
+#cog https://www.google.fr
 
 export IMAGE_BASENAME = "rpi-browser-image"
