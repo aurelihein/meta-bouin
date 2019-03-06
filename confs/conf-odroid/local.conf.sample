@@ -281,4 +281,4 @@ PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-fdo"
 PACKAGE_FEED_URIS = "http://192.168.1.101:8080"
 
 DL_DIR ?= "/yocto/downloads"
-SSTATE_DIR ?= "/yocto/sstate-cache-odroid"
+SSTATE_DIR ?= "/yocto/sstate-cache-odroid-c2"
