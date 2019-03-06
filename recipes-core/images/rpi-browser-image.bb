@@ -17,8 +17,6 @@ IMAGE_FEATURES += "ssh-server-dropbear splash"
 
 MACHINE_FEATURES += " userland "
 
-RDEPENDS_${PN}_remove = "connman connman-client "
-
 IMAGE_FEATURES += " package-management "
 IMAGE_FEATURES += " ssh-server-dropbear hwcodecs "
 
