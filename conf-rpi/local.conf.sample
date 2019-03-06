@@ -50,7 +50,7 @@ MACHINE ?= "raspberrypi3"
 #
 # The default is a downloads directory under TOPDIR which is the build directory.
 # Now it will be in the previous directory than build then you keep it
-DL_DIR ?= "${TOPDIR}/../downloads"
+DL_DIR ??= "${TOPDIR}/../downloads"
 
 #
 # Where to place shared-state files
@@ -66,7 +66,7 @@ DL_DIR ?= "${TOPDIR}/../downloads"
 #
 # The default is a sstate-cache directory under TOPDIR.
 #
-SSTATE_DIR ?= "${TOPDIR}/../sstate-cache"
+SSTATE_DIR ??= "${TOPDIR}/../sstate-cache"
 
 #
 # Where to place the build output
@@ -264,14 +264,20 @@ GPU_MEM_1024 = "396"
 
 #Add Package Manager to Build : dnf
 EXTRA_IMAGE_FEATURES += " package-management "
-IMAGE_INSTALL_append=" python-smartrpm "
 
+#Use WPE webkit :
 ##if rpi native:
 PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-rdk"
 PACKAGECONFIG_pn-wpebackend-rdk = "rpi libinput"
-##else
+##elif fdo thanks to wayland
 #PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-fdo"
-##endif
+#MACHINE_FEATURES_append = " vc4graphics "
+##else mesa thanks to mesa
+#PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-mesa"
+#endif
+
+#Mali prefered version :
+PREFERRED_VERSION_mali-450 = "r7p0"
 
 #DNF special configuration
 #Do not forget to do :
@@ -279,3 +285,6 @@ PACKAGECONFIG_pn-wpebackend-rdk = "rpi libinput"
 #Launch twisted under the build dir :
 #twistd -p 8080 -n web --path tmp/deploy/rpm
 PACKAGE_FEED_URIS = "http://192.168.1.101:8080"
+
+DL_DIR ?= "/yocto/downloads"
+SSTATE_DIR ?= "/yocto/sstate-cache-rpi"

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TEMPLATECONF="$(pwd)/sources/meta-bouin/conf-rpi"
+TEMPLATECONF="$(pwd)/sources/meta-bouin/conf-odroid"
 export TEMPLATECONF
 
 . ./sources/poky/oe-init-build-env $1

@@ -1,5 +1,3 @@
-#Image that embed starting point for crypto
-
 include recipes-core/images/core-image-base.bb
 
 
@@ -22,6 +20,9 @@ MACHINE_FEATURES += " userland "
 IMAGE_FEATURES += " package-management "
 IMAGE_FEATURES += " ssh-server-dropbear hwcodecs "
 
+IMAGE_INSTALL_RPI += "\
+    gstreamer1.0-omx "
+
 IMAGE_INSTALL += "\
     kernel-modules \
     htop \
@@ -31,7 +32,8 @@ IMAGE_INSTALL += "\
     wpewebkit cog \
     kbd keymaps xkeyboard-config \
     libx11 libx11-locale \
-    gstreamer1.0-omx \
+    ${IMAGE_INSTALL_RPI} \
+    networkmanager \
     "
 #For test purpose add the following IMAGE_INSTALL_append
 #BUT you admit to add commercial as falloiwing into conf/local.conf
@@ -46,6 +48,7 @@ IMAGE_INSTALL_append = " packagegroup-rpi-test"
 #You can test WPE browser :
 #export WPE_BCMRPI_TOUCH=1
 #export WPE_BCMRPI_CURSOR=1
+#export WPE_DISPLAY_FPS=1
 #cog https://www.google.fr
 
 export IMAGE_BASENAME = "rpi-browser-image"
