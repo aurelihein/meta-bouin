@@ -38,7 +38,7 @@ IMAGE_INSTALL += "\
 #For test purpose add the following IMAGE_INSTALL_append
 #BUT you admit to add commercial as falloiwing into conf/local.conf
 #LICENSE_FLAGS_WHITELIST += "commercial"
-IMAGE_INSTALL_append = " packagegroup-rpi-test"
+IMAGE_INSTALL_append = " packagegroup-rpi-test-aurelien"
 
 #you can test with :
 #omxplayer -p hdmi /usr/share/movies/big_buck_bunny_1080p_surround.avi
