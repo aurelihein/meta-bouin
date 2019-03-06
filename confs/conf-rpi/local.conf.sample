@@ -283,7 +283,7 @@ PREFERRED_VERSION_mali-450 = "r7p0"
 #Do not forget to do :
 #bitbake package-index
 #Launch twisted under the build dir :
-#twistd -p 8080 -n web --path tmp/deploy/rpm
+#sudo twistd -n web --path tmp/deploy/rpm --port "tcp:port=80"
 PACKAGE_FEED_URIS = "http://192.168.1.101:8080"
 
 DL_DIR ?= "/yocto/downloads"
