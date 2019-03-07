@@ -7,14 +7,6 @@ SPLASH = "psplash-raspberrypi"
 
 IMAGE_FEATURES += "ssh-server-dropbear splash"
 
-#Not taken into effect here !
-##if rpi native:
-#PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-rdk"
-#PACKAGECONFIG_pn-wpebackend-rdk = "rpi libinput"
-##else
-#PREFERRED_PROVIDER_virtual/wpebackend = "wpebackend-fdo"
-##endif
-
 MACHINE_FEATURES += " userland "
 
 IMAGE_FEATURES += " package-management "
@@ -31,10 +23,10 @@ IMAGE_INSTALL += "\
     libinput \
     wpewebkit cog \
     kbd keymaps xkeyboard-config \
-    libx11 libx11-locale \
     ${IMAGE_INSTALL_RPI} \
     networkmanager \
     "
+
 #For test purpose add the following IMAGE_INSTALL_append
 #BUT you admit to add commercial as falloiwing into conf/local.conf
 #LICENSE_FLAGS_WHITELIST += "commercial"

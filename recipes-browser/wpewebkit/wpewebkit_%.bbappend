@@ -1,4 +1,2 @@
-#FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
-#SRC_URI += "file://detect-gstreamer-gl.patch"
-
-PACKAGECONFIG = "fetchapi indexeddb mediasource video webaudio webcrypto woff2 remote-inspector"
+PACKAGECONFIG_odroid = "fetchapi indexeddb mediasource video webaudio webcrypto woff2 remote-inspector"
+PACKAGECONFIG_rpi = "fetchapi indexeddb mediasource video webaudio webcrypto woff2 gst_gl remote-inspector openjpeg"
