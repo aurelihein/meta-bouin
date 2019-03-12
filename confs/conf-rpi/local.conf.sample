@@ -289,3 +289,5 @@ PACKAGE_FEED_URIS = "http://192.168.1.101:8080"
 DL_DIR ?= "/yocto/downloads"
 SSTATE_DIR ?= "/yocto/sstate-cache-rpi"
 LICENSE_FLAGS_WHITELIST += "commercial"
+
+#SDIMG_COMPRESSION = "xz"
