@@ -291,3 +291,8 @@ SSTATE_DIR ?= "/yocto/sstate-cache-rpi"
 LICENSE_FLAGS_WHITELIST += "commercial"
 
 #SDIMG_COMPRESSION = "xz"
+
+#keep track of the "builds" that gets created using the yocto-build-system
+#INHERIT += "buildhistory"
+#BUILDHISTORY_COMMIT = "1"
+#You can then call buildhistory-diff

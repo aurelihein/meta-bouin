@@ -282,3 +282,8 @@ PACKAGE_FEED_URIS = "http://192.168.1.101:8080"
 
 DL_DIR ?= "/yocto/downloads"
 SSTATE_DIR ?= "/yocto/sstate-cache-odroid-c2"
+
+#keep track of the "builds" that gets created using the yocto-build-system
+#INHERIT += "buildhistory"
+#BUILDHISTORY_COMMIT = "1"
+#You can then call buildhistory-diff

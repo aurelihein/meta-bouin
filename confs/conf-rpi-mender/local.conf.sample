@@ -282,6 +282,10 @@ LICENSE_FLAGS_WHITELIST += "commercial"
 #sudo twistd -n web --path tmp/deploy/rpm --port "tcp:port=80"
 PACKAGE_FEED_URIS = "http://192.168.1.101:8080"
 
+#keep track of the "builds" that gets created using the yocto-build-system
+#INHERIT += "buildhistory"
+#BUILDHISTORY_COMMIT = "1"
+#You can then call buildhistory-diff
 
 DL_DIR ?= "/yocto/downloads"
 SSTATE_DIR ?= "/yocto/sstate-cache-rpi"
