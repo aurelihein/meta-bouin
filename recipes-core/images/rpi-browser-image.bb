@@ -1,11 +1,23 @@
-include recipes-core/images/core-image-base.bb
+SUMMARY = "A demo image."
 
+IMAGE_INSTALL = "packagegroup-core-boot ${CORE_IMAGE_EXTRA_INSTALL}"
+
+IMAGE_LINGUAS = " "
+#IMAGE_LINGUAS = " en-us en-gb "
+
+LICENSE = "MIT"
+
+inherit core-image
+
+#Seems to not work :
+SPLASH = "psplash-captina"
+
+IMAGE_ROOTFS_SIZE ?= "8192"
+IMAGE_ROOTFS_EXTRA_SPACE_append = "${@bb.utils.contains("DISTRO_FEATURES", "systemd", " + 4096", "" ,d)}"
 
 COMPATIBLE_MACHINE = "^rpi$"
 
-SPLASH = "psplash-raspberrypi"
-
-IMAGE_FEATURES += "ssh-server-dropbear splash"
+IMAGE_FEATURES += "ssh-server-dropbear"
 
 MACHINE_FEATURES += " userland "
 
@@ -25,6 +37,7 @@ IMAGE_INSTALL += "\
     kbd keymaps xkeyboard-config \
     ${IMAGE_INSTALL_RPI} \
     networkmanager \
+    psplash \
     "
 
 #For test purpose add the following IMAGE_INSTALL_append
