@@ -1,0 +1,53 @@
+From e8e58f492200b142a75be10ebd1fc3baa0cd3db2 Mon Sep 17 00:00:00 2001
+From: Aurelien BOUIN <a.bouin@gmail.com>
+Date: Wed, 13 Mar 2019 12:01:55 +0100
+Subject: [PATCH 1/1] linux-raspberrypi : disable start up logo CONFIG_LOGO=n
+
+---
+ arch/arm/configs/bcm2709_defconfig   | 2 +-
+ arch/arm/configs/bcmrpi_defconfig    | 2 +-
+ arch/arm64/configs/bcmrpi3_defconfig | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm/configs/bcm2709_defconfig b/arch/arm/configs/bcm2709_defconfig
+index 949f188cd1ea..1edaa56c9587 100644
+--- a/arch/arm/configs/bcm2709_defconfig
++++ b/arch/arm/configs/bcm2709_defconfig
+@@ -864,7 +864,7 @@ CONFIG_FB_RPISENSE=m
+ CONFIG_BACKLIGHT_RPI=m
+ CONFIG_BACKLIGHT_GPIO=m
+ CONFIG_FRAMEBUFFER_CONSOLE=y
+-CONFIG_LOGO=y
++CONFIG_LOGO=n
+ # CONFIG_LOGO_LINUX_MONO is not set
+ # CONFIG_LOGO_LINUX_VGA16 is not set
+ CONFIG_SOUND=y
+diff --git a/arch/arm/configs/bcmrpi_defconfig b/arch/arm/configs/bcmrpi_defconfig
+index e71232a6e8f0..47e6f7b3b755 100644
+--- a/arch/arm/configs/bcmrpi_defconfig
++++ b/arch/arm/configs/bcmrpi_defconfig
+@@ -857,7 +857,7 @@ CONFIG_FB_RPISENSE=m
+ CONFIG_BACKLIGHT_RPI=m
+ CONFIG_BACKLIGHT_GPIO=m
+ CONFIG_FRAMEBUFFER_CONSOLE=y
+-CONFIG_LOGO=y
++CONFIG_LOGO=n
+ # CONFIG_LOGO_LINUX_MONO is not set
+ # CONFIG_LOGO_LINUX_VGA16 is not set
+ CONFIG_SOUND=y
+diff --git a/arch/arm64/configs/bcmrpi3_defconfig b/arch/arm64/configs/bcmrpi3_defconfig
+index 3ef1f986bcb1..f196703a51df 100644
+--- a/arch/arm64/configs/bcmrpi3_defconfig
++++ b/arch/arm64/configs/bcmrpi3_defconfig
+@@ -814,7 +814,7 @@ CONFIG_FB_RPISENSE=m
+ CONFIG_BACKLIGHT_RPI=m
+ CONFIG_BACKLIGHT_GPIO=m
+ CONFIG_FRAMEBUFFER_CONSOLE=y
+-CONFIG_LOGO=y
++CONFIG_LOGO=n
+ # CONFIG_LOGO_LINUX_MONO is not set
+ # CONFIG_LOGO_LINUX_VGA16 is not set
+ CONFIG_SOUND=y
+-- 
+2.17.1
+
