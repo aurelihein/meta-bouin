@@ -50,7 +50,7 @@ MACHINE ?= "raspberrypi3"
 #
 # The default is a downloads directory under TOPDIR which is the build directory.
 # Now it will be in the previous directory than build then you keep it
-DL_DIR ??= "${TOPDIR}/../downloads"
+DL_DIR ?= "${TOPDIR}/../downloads"
 
 #
 # Where to place shared-state files
@@ -66,7 +66,7 @@ DL_DIR ??= "${TOPDIR}/../downloads"
 #
 # The default is a sstate-cache directory under TOPDIR.
 #
-SSTATE_DIR ??= "${TOPDIR}/../sstate-cache"
+SSTATE_DIR ?= "${TOPDIR}/../sstate-cache"
 
 #
 # Where to place the build output
@@ -88,7 +88,7 @@ SSTATE_DIR ??= "${TOPDIR}/../sstate-cache"
 # Ultimately when creating custom policy, people will likely end up subclassing 
 # these defaults.
 #
-DISTRO ?= "poky"
+DISTRO ?= "bouin"
 # As an example of a subclass there is a "bleeding" edge policy configuration
 # where many versions are set to the absolute latest code from the upstream 
 # source control systems. This is just mentioned here as an example, its not
@@ -286,8 +286,6 @@ PREFERRED_VERSION_mali-450 = "r7p0"
 #sudo twistd -n web --path tmp/deploy/rpm --port "tcp:port=80"
 PACKAGE_FEED_URIS = "http://192.168.1.101:8080"
 
-DL_DIR ?= "/yocto/downloads"
-SSTATE_DIR ?= "/yocto/sstate-cache-rpi"
 LICENSE_FLAGS_WHITELIST += "commercial"
 
 #SDIMG_COMPRESSION = "xz"
@@ -296,3 +294,5 @@ LICENSE_FLAGS_WHITELIST += "commercial"
 #INHERIT += "buildhistory"
 #BUILDHISTORY_COMMIT = "1"
 #You can then call buildhistory-diff
+#BB_NUMBER_THREADS = "4"
+IMAGE_FSTYPES = "wic.gz"

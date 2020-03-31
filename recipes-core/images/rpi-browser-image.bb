@@ -38,6 +38,7 @@ IMAGE_INSTALL += "\
     ${IMAGE_INSTALL_RPI} \
     networkmanager \
     psplash \
+    html5videotest \
     "
 
 #For test purpose add the following IMAGE_INSTALL_append
@@ -46,7 +47,7 @@ IMAGE_INSTALL += "\
 IMAGE_INSTALL_append = " packagegroup-rpi-test-aurelien"
 
 #you can test with :
-#omxplayer -p hdmi /usr/share/movies/big_buck_bunny_1080p_surround.avi
+#omxplayer -p -o hdmi /usr/share/movies/big_buck_bunny_1080p_surround.avi
 #or
 #gst-launch-1.0 -v filesrc location=10_24fps_5M_nb-fastdecode.mp4 ! queue ! omxh264dec ! glimagesink
 
