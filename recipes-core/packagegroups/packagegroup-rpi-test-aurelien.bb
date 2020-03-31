@@ -12,7 +12,6 @@ OMXPLAYER_rpi_aarch64 = ""
 RDEPENDS_${PN} = "\
     ${OMXPLAYER} \
     bcm2835-tests \
-    wiringpi \
     rpio \
     rpi-gpio \
     pi-blaster \
