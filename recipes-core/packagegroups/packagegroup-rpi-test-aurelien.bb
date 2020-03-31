@@ -24,7 +24,5 @@ RDEPENDS_${PN} = "\
 
 RRECOMMENDS_${PN} = "\
     bigbuckbunny-1080p \
-    bigbuckbunny-480p \
-    bigbuckbunny-720p \
     ${MACHINE_EXTRA_RRECOMMENDS} \
 "
