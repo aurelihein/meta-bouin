@@ -12,19 +12,18 @@ OMXPLAYER_rpi_aarch64 = ""
 RDEPENDS_${PN} = "\
     ${OMXPLAYER} \
     bcm2835-tests \
-    wiringpi \
+    raspi-gpio \
     rpio \
     rpi-gpio \
     pi-blaster \
-    python-rtimu \
-    python-sense-hat \
-    crda \
+    python3-rtimu \
+    python3-sense-hat \
     bluez5 \
 "
 
+#crda
+
 RRECOMMENDS_${PN} = "\
     bigbuckbunny-1080p \
-    bigbuckbunny-480p \
-    bigbuckbunny-720p \
     ${MACHINE_EXTRA_RRECOMMENDS} \
 "
