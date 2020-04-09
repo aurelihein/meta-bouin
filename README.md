@@ -34,6 +34,12 @@ Building the firmware for rpi is pretty easy.
 
 `repo init -u https://github.com/aurelihein/meta-bouin.git -m manifest-zeus.xml -b zeus`
 
+or
+
+the latest tested one : 
+
+`repo init -u https://github.com/aurelihein/meta-bouin.git -m manifest-last-tested-zeus.xml -b zeus`
+
 `repo sync --force-sync`
 
 3. Configure with the needed machine
