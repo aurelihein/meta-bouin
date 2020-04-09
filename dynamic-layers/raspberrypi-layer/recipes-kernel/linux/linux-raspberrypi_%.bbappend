@@ -1,5 +1,5 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+DISABLE_RPI_BOOT_LOGO ?= "1"
+DISABLE_CONSOLE_LOG_AT_BOOT ?= "1"
 
-#SRC_URI += "file://0001-linux-raspberrypi-disable-start-up-logo.patch"
-SRC_URI += "file://rpi-kernel-misc-bouin.cfg"
-
+# Disable rpi logo on boot
+CMDLINE_append += ' ${@oe.utils.conditional("DISABLE_CONSOLE_LOG_AT_BOOT", "1", "quiet", "", d)}'
