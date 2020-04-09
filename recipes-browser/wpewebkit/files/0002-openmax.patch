@@ -1,0 +1,87 @@
+From fdd7c0d15b5f49d55ec8dc22bfc182f9bd4c1aa3 Mon Sep 17 00:00:00 2001
+From: "magomez@igalia.com"
+ <magomez@igalia.com@268f45cc-cd09-0410-ab3c-d52691b4dbfc>
+Date: Fri, 27 Mar 2020 13:14:01 +0000
+Subject: [PATCH] [WPE] Unnecessary gl synchronization when using an OpenMAX
+ video decoder and GLES2 https://bugs.webkit.org/show_bug.cgi?id=209647
+
+Reviewed by Adrian Perez de Castro.
+
+Don't perform the call to gst_gl_sync_meta_wait_cpu() when using an OpenMAX decoder,
+as we don't need synchronization in that case and the internal call to glFinish()
+casues an important fps drop.
+
+* platform/graphics/gstreamer/GStreamerCommon.h:
+* platform/graphics/gstreamer/MediaPlayerPrivateGStreamer.cpp:
+(WebCore::GstVideoFrameHolder::waitForCPUSync):
+(WebCore::MediaPlayerPrivateGStreamer::createGSTPlayBin):
+
+
+git-svn-id: http://svn.webkit.org/repository/webkit/trunk@259113 268f45cc-cd09-0410-ab3c-d52691b4dbfc
+---
+ Source/WebCore/ChangeLog                         | 16 ++++++++++++++++
+ .../graphics/gstreamer/GStreamerCommon.h         |  2 +-
+ .../gstreamer/MediaPlayerPrivateGStreamer.cpp    |  6 ++++++
+ 3 files changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/Source/WebCore/ChangeLog b/Source/WebCore/ChangeLog
+index 84fc0910030b..564f797f782f 100644
+--- a/Source/WebCore/ChangeLog
++++ b/Source/WebCore/ChangeLog
+@@ -1,3 +1,19 @@
++2020-03-27  Miguel Gomez  <magomez@igalia.com>
++
++        [WPE] Unnecessary gl synchronization when using an OpenMAX video decoder and GLES2
++        https://bugs.webkit.org/show_bug.cgi?id=209647
++
++        Reviewed by Adrian Perez de Castro.
++
++        Don't perform the call to gst_gl_sync_meta_wait_cpu() when using an OpenMAX decoder,
++        as we don't need synchronization in that case and the internal call to glFinish()
++        casues an important fps drop.
++
++        * platform/graphics/gstreamer/GStreamerCommon.h:
++        * platform/graphics/gstreamer/MediaPlayerPrivateGStreamer.cpp:
++        (WebCore::GstVideoFrameHolder::waitForCPUSync):
++        (WebCore::MediaPlayerPrivateGStreamer::createGSTPlayBin):
++
+ 2020-03-08  Konstantin Tokarev  <annulen@yandex.ru>
+ 
+         [GTK] Fix compilation with disabled OpenGL
+diff --git a/Source/WebCore/platform/graphics/gstreamer/GStreamerCommon.h b/Source/WebCore/platform/graphics/gstreamer/GStreamerCommon.h
+index 969c7c334b95..a1e56244b17e 100644
+--- a/Source/WebCore/platform/graphics/gstreamer/GStreamerCommon.h
++++ b/Source/WebCore/platform/graphics/gstreamer/GStreamerCommon.h
+@@ -219,7 +219,7 @@ class GstMappedFrame {
+ void connectSimpleBusMessageCallback(GstElement* pipeline);
+ void disconnectSimpleBusMessageCallback(GstElement* pipeline);
+ 
+-enum class GstVideoDecoderPlatform { ImxVPU, Video4Linux };
++enum class GstVideoDecoderPlatform { ImxVPU, Video4Linux, OpenMAX };
+ 
+ bool isGStreamerPluginAvailable(const char* name);
+ 
+diff --git a/Source/WebCore/platform/graphics/gstreamer/MediaPlayerPrivateGStreamer.cpp b/Source/WebCore/platform/graphics/gstreamer/MediaPlayerPrivateGStreamer.cpp
+index b49d47a9277c..4efbe44a15a6 100644
+--- a/Source/WebCore/platform/graphics/gstreamer/MediaPlayerPrivateGStreamer.cpp
++++ b/Source/WebCore/platform/graphics/gstreamer/MediaPlayerPrivateGStreamer.cpp
+@@ -283,6 +283,10 @@ class GstVideoFrameHolder : public TextureMapperPlatformLayerBuffer::UnmanagedBu
+ #if USE(GSTREAMER_GL)
+     virtual void waitForCPUSync()
+     {
++        // No need for OpenGL synchronization when using the OpenMAX decoder.
++        if (m_videoDecoderPlatform == GstVideoDecoderPlatform::OpenMAX)
++            return;
++
+         GstGLSyncMeta* meta = gst_buffer_get_gl_sync_meta(m_buffer.get());
+         if (meta) {
+             GstMemory* mem = gst_buffer_peek_memory(m_buffer.get(), 0);
+@@ -3029,6 +3033,8 @@ void MediaPlayerPrivateGStreamer::createGSTPlayBin(const URL& url, const String&
+             player->m_videoDecoderPlatform = GstVideoDecoderPlatform::Video4Linux;
+         else if (g_str_has_prefix(elementName.get(), "imxvpudec"))
+             player->m_videoDecoderPlatform = GstVideoDecoderPlatform::ImxVPU;
++        else if (g_str_has_prefix(elementName.get(), "omx"))
++            player->m_videoDecoderPlatform = GstVideoDecoderPlatform::OpenMAX;
+ 
+ #if USE(TEXTURE_MAPPER_GL)
+         player->updateTextureMapperFlags();

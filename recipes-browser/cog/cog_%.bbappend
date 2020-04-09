@@ -1,5 +1,8 @@
-#SRCREV = "1882f4dd3a87ebd0967940e5d9d04e77956ad703"
+FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
-#do_install_append () {
-#    bbwarn "meta-bouin : Beware that we are building cog git version : 1882f4dd3a87ebd0967940e5d9d04e77956ad703"
-#}
+SRC_URI += "file://cog-fdo"
+
+do_install_append () {
+    install -d ${D}/${bindir}/
+    install -m 755 ${WORKDIR}/cog-fdo ${D}/${bindir}/cog-fdo
+}
