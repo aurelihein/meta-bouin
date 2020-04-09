@@ -1,0 +1,30 @@
+diff --git a/gst-libs/gst/gl/gstglupload.c b/gst-libs/gst/gl/gstglupload.c
+index 7d19f683a1bcdc1121ae3a583494c61311cc48e4..2ef00a49b877d9034517b9b83cdc8152eb0c5a20 100644
+--- a/gst-libs/gst/gl/gstglupload.c
++++ b/gst-libs/gst/gl/gstglupload.c
+@@ -1975,7 +1975,7 @@ gst_gl_upload_perform_with_buffer (GstGLUpload * upload, GstBuffer * buffer,
+     GstBuffer ** outbuf_ptr)
+ {
+   GstGLUploadReturn ret = GST_GL_UPLOAD_ERROR;
+-  GstBuffer *outbuf;
++  GstBuffer *outbuf = NULL;
+   gpointer last_impl = upload->priv->method_impl;
+ 
+   g_return_val_if_fail (GST_IS_GL_UPLOAD (upload), FALSE);
+@@ -2016,6 +2016,8 @@ restart:
+         break;
+       }
+     }
++
++    gst_buffer_replace (&outbuf, NULL);
+     goto restart;
+   } else if (ret == GST_GL_UPLOAD_DONE || ret == GST_GL_UPLOAD_RECONFIGURE) {
+     if (last_impl != upload->priv->method_impl) {
+@@ -2030,6 +2032,7 @@ restart:
+     /* we are done */
+   } else {
+     upload->priv->method_impl = NULL;
++    gst_buffer_replace (&outbuf, NULL);
+     NEXT_METHOD;
+   }
+ 
