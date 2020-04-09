@@ -18,12 +18,12 @@ do_compile[noexec] = "1"
 
 do_install () {
     rm -rf ${D}
-    install -d ${D}/usr/share/apache2/htdocs
-    install -m 644 ${WORKDIR}/*.html ${D}/usr/share/apache2/htdocs/
-    install -m 644 ${WORKDIR}/*.mp4 ${D}/usr/share/apache2/htdocs/
+    install -d ${D}/usr/share/apache2/default-site/htdocs/
+    install -m 644 ${WORKDIR}/*.html ${D}/usr/share/apache2/default-site/htdocs/
+    install -m 644 ${WORKDIR}/*.mp4 ${D}/usr/share/apache2/default-site/htdocs/
     install -d ${D}/usr/bin
     install -m 755 ${WORKDIR}/*.sh ${D}/usr/bin/
 }
 
-FILES_${PN} = "/usr/share/apache2/htdocs/"
+FILES_${PN} = "/usr/share/apache2/default-site/htdocs/"
 FILES_${PN} += "/usr/bin/"
