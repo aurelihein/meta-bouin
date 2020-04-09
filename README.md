@@ -24,21 +24,31 @@ There is several interesting branches :
 
 Building the firmware for rpi is pretty easy.
 
-First of all download two needed meta :
+1. First of all create the yocto repository :
 
-1.`git clone `
+`mkdir zeus-rpi3-wpe-rdk`
 
-Configure and run the build
+`cd zeus-rpi3-wpe-rdk`
 
-1.`export TEMPLATECONF="$(pwd)/sources/meta-bouin/confs/conf-rpi" && export MACHINE="raspberrypi3" && export DISTRO="bouin" && . ./sources/poky/oe-init-build-env build`
+2. Download the needed metas thanks to repo :
 
-3.`bitbake rpi-browser-image`
+`repo init -u https://github.com/aurelihein/meta-bouin.git -m manifest-zeus.xml -b zeus`
+
+`repo sync --force-sync`
+
+3. Configure with the needed machine
+
+`export TEMPLATECONF="$(pwd)/sources/meta-bouin/confs/conf-rpi" && export MACHINE="raspberrypi3-64-mesa" && export DISTRO="bouin" && . ./sources/poky/oe-init-build-env build`
+
+4. Run the build
+
+`bitbake rpi-browser-image`
 
 ## Installing the wic image ##
 
 From the build directory :
 
-1.Rpi3 : `export SDCARD_IMAGE=build/tmp/deploy/images/raspberrypi3/rpi-browser-image-raspberrypi3.wic`
+1.Rpi3 : `export SDCARD_IMAGE=build/tmp/deploy/images/raspberrypi3-64-mesa/rpi-browser-image-raspberrypi3-64-mesa.wic`
 
 2.Sdcard place : export it : `export SDCARD_SLOT=/dev/foo` and check with `lsblk ${SDCARD_SLOT}`
 
@@ -52,7 +62,7 @@ The image will be burned to SD, erasing anything that might have already been th
 
 From the build directory :
 
-1.Rpi3 : `export GZ_SDCARD_IMAGE=build/tmp/deploy/images/raspberrypi3/rpi-browser-image-raspberrypi3.wic.gz`
+1.Rpi3 : `export GZ_SDCARD_IMAGE=build/tmp/deploy/images/raspberrypi3-64-mesa/rpi-browser-image-raspberrypi3-64-mesa.wic.gz`
 
 2.Sdcard place : export it : `export SDCARD_SLOT=/dev/foo` and check with `lsblk ${SDCARD_SLOT}`
 

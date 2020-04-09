@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+    <default revision="zeus" sync-j="4"/>
+
+    <remote fetch="https://git.yoctoproject.org/git/" name="yocto"/>
+    <remote fetch="git://git.yoctoproject.org/" name="rpi"/>
+    <remote fetch="git://github.com" name="github"/>
+
+    <project remote="github" revision="zeus" name="aurelihein/meta-bouin.git" path="sources/meta-bouin">
+        <copyfile src="rpi-bouin-init-build-env" dest="rpi-bouin-init-build-env" />
+        <copyfile src="README.md" dest="README.md" />
+    </project>
+    <project remote="github" revision="master" name="OSSystems/meta-gstreamer1.0.git" path="sources/meta-gstreamer1.0"/>
+    <project remote="github" revision="zeus" name="openembedded/meta-openembedded.git" path="sources/meta-openembedded"/>
+    <project remote="rpi" revision="zeus" name="meta-raspberrypi" path="sources/meta-raspberrypi"/>
+    <project remote="github" revision="zeus" name="Igalia/meta-webkit.git" path="sources/meta-webkit"/>
+    <project remote="yocto" revision="zeus" name="poky" path="sources/poky"/>
+
+</manifest>
