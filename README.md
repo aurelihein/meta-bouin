@@ -24,15 +24,31 @@ There is several interesting branches :
 
 Building the firmware for rpi is pretty easy.
 
-First of all download two needed meta :
+1. First of all create the yocto repository :
 
-1.`git clone `
+`mkdir sumo-rpi3-wpe-rdk`
 
-Configure and run the build
+`cd sumo-rpi3-wpe-rdk`
 
-1.`export TEMPLATECONF="$(pwd)/sources/meta-bouin/confs/conf-rpi" && export MACHINE="raspberrypi3" && export DISTRO="bouin" && . ./sources/poky/oe-init-build-env build`
+2. Download the needed metas thanks to repo :
 
-3.`bitbake rpi-browser-image`
+`repo init -u https://github.com/aurelihein/meta-bouin.git -m manifest-sumo.xml -b sumo`
+
+or
+
+the latest tested one : 
+
+`repo init -u https://github.com/aurelihein/meta-bouin.git -m manifest-last-tested-sumo.xml -b sumo`
+
+`repo sync --force-sync`
+
+3. Configure with the needed machine
+
+`export TEMPLATECONF="$(pwd)/sources/meta-bouin/confs/conf-rpi" && export MACHINE="raspberrypi3" && export DISTRO="bouin" && . ./sources/poky/oe-init-build-env build`
+
+4. Run the build
+
+`bitbake rpi-browser-image`
 
 ## Installing the wic image ##
 
@@ -62,7 +78,7 @@ where `/dev/foo` might be `/dev/sde`, or whatever is appropriate for your system
 
 The image will be burned to SD, erasing anything that might have already been there. Use a micro-SD card that's 4GB or larger.
 
-## Current State ##
+## Current branch and repo needed : ##
 
 git clone -b sumo https://github.com/aurelihein/meta-bouin sources/meta-bouin
 git clone -b sumo git://github.com/OSSystems/meta-gstreamer1.0.git sources/meta-gstreamer1.0
