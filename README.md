@@ -1,4 +1,4 @@
-rpi-bouin Yocto Layer
+meta-bouin Yocto Layer
 =====================
 
 ## Introduction ##
