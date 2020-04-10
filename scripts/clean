@@ -1,0 +1,9 @@
+#! /bin/bash -x
+
+if [ -z ${BUILDDIR+x} ]
+then
+    echo "error: BUILDDIR is unset"
+else
+    rm -rf ${BUILDDIR}/cache
+    rm -rf ${BUILDDIR}/tmp
+fi

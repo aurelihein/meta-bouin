@@ -26,9 +26,9 @@ Building the firmware for rpi is pretty easy.
 
 1. First of all create the yocto repository :
 
-`mkdir zeus-rpi3-wpe-rdk`
+`mkdir zeus-rpi3-wpe`
 
-`cd zeus-rpi3-wpe-rdk`
+`cd zeus-rpi3-wpe`
 
 2. Download the needed metas thanks to repo :
 
@@ -42,9 +42,15 @@ the latest tested one :
 
 `repo sync --force-sync`
 
-3. Configure with the needed machine
+3. Configure with the needed machine and config 
 
-`export TEMPLATECONF="$(pwd)/sources/meta-bouin/confs/conf-rpi" && export MACHINE="raspberrypi3-64-mesa" && export DISTRO="bouin" && . ./sources/poky/oe-init-build-env build`
+    * fdo mode :
+
+    `source sources/meta-bouin/scripts/setup-environment build_rpi3_64-mesa-fdo raspberrypi3-64-mesa bouin rpi rpi3_64-fdo --update-config`
+
+    * rdk mode (TODO) :
+
+    `source sources/meta-bouin/scripts/setup-environment build_rpi3_64-mesa-rdk raspberrypi3-64-mesa bouin rpi rpi3_64-rdk --update-config`
 
 4. Run the build
 
@@ -54,7 +60,7 @@ the latest tested one :
 
 From the build directory :
 
-1.Rpi3 : `export SDCARD_IMAGE=build/tmp/deploy/images/raspberrypi3-64-mesa/rpi-browser-image-raspberrypi3-64-mesa.wic`
+1.Rpi3 : `export SDCARD_IMAGE=tmp/deploy/images/raspberrypi3-64-mesa/rpi-browser-image-raspberrypi3-64-mesa.wic`
 
 2.Sdcard place : export it : `export SDCARD_SLOT=/dev/foo` and check with `lsblk ${SDCARD_SLOT}`
 
@@ -68,7 +74,7 @@ The image will be burned to SD, erasing anything that might have already been th
 
 From the build directory :
 
-1.Rpi3 : `export GZ_SDCARD_IMAGE=build/tmp/deploy/images/raspberrypi3-64-mesa/rpi-browser-image-raspberrypi3-64-mesa.wic.gz`
+1.Rpi3 : `export GZ_SDCARD_IMAGE=tmp/deploy/images/raspberrypi3-64-mesa/rpi-browser-image-raspberrypi3-64-mesa.wic.gz`
 
 2.Sdcard place : export it : `export SDCARD_SLOT=/dev/foo` and check with `lsblk ${SDCARD_SLOT}`
 
