@@ -81,8 +81,13 @@ The image will be burned to SD, erasing anything that might have already been th
 ## Current branch and repo needed : ##
 
 git clone -b zeus https://github.com/aurelihein/meta-bouin sources/meta-bouin
+
 git clone -b zeus git://github.com/OSSystems/meta-gstreamer1.0.git sources/meta-gstreamer1.0
+
 git clone -b zeus git://git.openembedded.org/meta-openembedded sources/meta-openembedded
+
 git clone -b zeus git://git.yoctoproject.org/meta-raspberrypi sources/meta-raspberrypi
+
 git clone -b master git://github.com/Igalia/meta-webkit sources/meta-webkit
+
 git clone -b zeus https://git.yoctoproject.org/git/poky sources/poky
