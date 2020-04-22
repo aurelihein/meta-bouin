@@ -6,14 +6,14 @@
     <remote fetch="git://git.yoctoproject.org/" name="rpi"/>
     <remote fetch="git://github.com" name="github"/>
 
-    <project remote="github" revision="e196f5652cb973a3cb63a77c201752959684f829" name="aurelihein/meta-bouin.git" path="sources/meta-bouin">
+    <project remote="github" revision="53a9dde383dd33f6b9c8c768c81be0aad555de85" name="aurelihein/meta-bouin.git" path="sources/meta-bouin">
         <copyfile src="rpi-bouin-init-build-env" dest="rpi-bouin-init-build-env" />
         <copyfile src="README.md" dest="README.md" />
     </project>
     <project remote="github" revision="bf562ab7bb4dd68e486c71be6ebcf9d872f63b33" name="OSSystems/meta-gstreamer1.0.git" path="sources/meta-gstreamer1.0"/>
     <project remote="github" revision="9e60d30669a2ad0598e9abf0cd15ee06b523986b" name="openembedded/meta-openembedded.git" path="sources/meta-openembedded"/>
-    <project remote="rpi" revision="0e05098853eea77032bff9cf81955679edd2f35d" name="meta-raspberrypi" path="sources/meta-raspberrypi"/>
-    <project remote="github" revision="57955c3a39ef5452db70176102a526f09588a546" name="Igalia/meta-webkit.git" path="sources/meta-webkit"/>
-    <project remote="yocto" revision="5531ffc5668c2f24b9018a7b7174b5c77315a1cf" name="poky" path="sources/poky"/>
+    <project remote="rpi"    revision="0e05098853eea77032bff9cf81955679edd2f35d" name="meta-raspberrypi" path="sources/meta-raspberrypi"/>
+    <project remote="github" revision="ab4c99d825ed99901e7bd86870312f6c70865f2e" name="Igalia/meta-webkit.git" path="sources/meta-webkit"/>
+    <project remote="yocto"  revision="74f229160c7f4037107c1dad8f0d02128c080a7e" name="poky" path="sources/poky"/>
 
 </manifest>
