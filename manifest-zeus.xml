@@ -10,7 +10,8 @@
         <copyfile src="rpi-bouin-init-build-env" dest="rpi-bouin-init-build-env" />
         <copyfile src="README.md" dest="README.md" />
     </project>
-    <project remote="github" revision="master" name="OSSystems/meta-gstreamer1.0.git" path="sources/meta-gstreamer1.0"/>
+    <!-- next commit rename distro_features_check to features_check which is a problem for current zeus yocto -->
+    <project remote="github" revision="bf562ab7bb4dd68e486c71be6ebcf9d872f63b33" name="OSSystems/meta-gstreamer1.0.git" path="sources/meta-gstreamer1.0"/>
     <project remote="github" revision="zeus" name="openembedded/meta-openembedded.git" path="sources/meta-openembedded"/>
     <project remote="rpi" revision="zeus" name="meta-raspberrypi" path="sources/meta-raspberrypi"/>
     <project remote="github" revision="zeus" name="Igalia/meta-webkit.git" path="sources/meta-webkit"/>
