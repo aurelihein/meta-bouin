@@ -1,0 +1,39 @@
+#! /bin/bash -e
+
+if [ "$#" -ne "5" ]
+then
+    echo -e "\e[32mUsage:\e[1m $0 machine image distro branch deploy_dir\e[0m"
+    echo "Example: $0 wandboard-mesa core-image-weston-wpe browsers nightly ~/meta-perf-browser"
+    exit -1
+fi
+
+MACHINE=${1}
+IMAGE=${2}
+DISTRO=${3}
+BRANCH=${4}
+DEPLOY_DIR=${5}
+
+MACHINE_DEPLOY_DIR=${DEPLOY_DIR}/${DISTRO}/${BRANCH}/
+
+IMAGES_DIR=${MACHINE_DEPLOY_DIR}/images/${MACHINE}/
+mkdir -p ${IMAGES_DIR}
+
+SDK_DIR=${MACHINE_DEPLOY_DIR}/sdk/${MACHINE}/
+mkdir -p ${SDK_DIR}
+
+bitbake ${IMAGE}
+bitbake ${IMAGE} -c populate_sdk
+
+cp -av \
+  ${BUILDDIR}/tmp/deploy/images/${MACHINE}/${IMAGE}-${MACHINE}*{wic.,rpi-sdimg}* ${IMAGES_DIR} || true
+
+pushd ${IMAGES_DIR}
+for f in $(ls ${IMAGE}-${MACHINE}*{wic\.,rpi-sdimg}* | grep -v md5sum); do md5sum $f > $f.md5sum; done
+popd
+
+cp -av \
+  ${BUILDDIR}/tmp/deploy/sdk/${DISTRO}-*-${IMAGE}-*-${MACHINE}-toolchain-* ${SDK_DIR}
+
+pushd ${SDK_DIR}
+for f in $(ls ${DISTRO}-*-${IMAGE}-*-${MACHINE}-toolchain-* | grep -v md5sum); do md5sum $f > $f.md5sum; done
+popd

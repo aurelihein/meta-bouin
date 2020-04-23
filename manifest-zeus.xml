@@ -7,7 +7,7 @@
     <remote fetch="git://github.com" name="github"/>
 
     <project remote="github" revision="zeus" name="aurelihein/meta-bouin.git" path="sources/meta-bouin">
-        <copyfile src="rpi-bouin-init-build-env" dest="rpi-bouin-init-build-env" />
+        <copyfile src="scripts/setup-environment" dest="setup-environment" />
         <copyfile src="README.md" dest="README.md" />
     </project>
     <!-- next commit rename distro_features_check to features_check which is a problem for current zeus yocto -->

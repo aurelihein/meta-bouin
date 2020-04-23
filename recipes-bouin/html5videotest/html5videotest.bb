@@ -1,6 +1,7 @@
 SUMMARY = "HTML5 video test"
 DESCRIPTION = "This a test for HTML5 video"
-LICENSE = "CLOSED"
+LICENSE = "BOUIN-Proprietary"
+LIC_FILES_CHKSUM = "file://${LAYER_LICENSES}/BOUIN-Proprietary;md5=3cfa1f23f08d4958b1b6041eddb2580d"
 
 RDEPENDS_${PN} += "apache2"
 

@@ -1,0 +1,149 @@
+#!/bin/bash
+
+BSPDIR="$(pwd)"
+TARGET="${1}"
+MACHINE="${2}"
+DISTRO="${3}"
+BBLAYERS="${4}"
+PRESETS="${5}"
+
+METANAME="meta-bouin"
+TEMPLATEDIR="${BSPDIR}/sources/${METANAME}/conf"
+TEMPLATECONF="${TEMPLATEDIR}/template"
+TEMPLATEINCLUDEDIR="${TEMPLATEDIR}/include"
+
+CONFBACKNAME="conf_$(date +%Y%m%d-%H%M%S)"
+OLDCONFSDIR="builds/${TARGET}/oldconfs"
+
+function print_targets ()
+{
+    echo -e "\e[32mTargets:(build directory of this target)\e[0m"
+    echo -e "\e[1m"
+    echo -e "<<new>>"
+    if [ -d builds ]; then
+        ls -d  builds/*/ | cut -f 2 -d '/'
+    else
+        echo -e "No build available yet"
+    fi
+    echo -e "\e[0m"
+}
+
+function print_machines ()
+{
+    echo -e "\e[32mMachines:\e[0m"
+    echo -e "\e[1m"
+    ls ${TEMPLATEDIR}/machine/ | cut -f 1 -d '.'
+    echo -e "\e[0m"
+}
+
+function print_distro ()
+{
+    echo -e "\e[32mDistros:\e[0m"
+    echo -e "\e[1m"
+    ls ${TEMPLATEDIR}/distro/ | cut -f 1 -d '.'
+    echo -e "\e[0m"
+}
+
+function print_bblayers ()
+{
+    echo -e "\e[32mBBlayers:\e[0m"
+    echo -e "\e[1m"
+    ls ${TEMPLATECONF}/bblayers/ | cut -f 3 -d '.'
+    echo -e "\e[0m"
+}
+
+function print_presets ()
+{
+    echo -e "\e[32mPresets:\e[0m"
+    echo -e "\e[1m"
+    ls ${TEMPLATECONF}/presets/ | cut -f 1 -d '.'
+    echo -e "\e[0m"
+}
+
+function print_help_info ()
+{
+    print_targets
+    print_machines
+    print_distro
+    print_bblayers
+    print_presets
+    echo -e "\e[0m"
+}
+
+if [ "${0}" = "${BASH_SOURCE}" ]; then
+    echo "Please don't run the script but source it"
+    echo -e "\e[32mUsage:\e[1m source ${0} targetname\e[0m"
+    echo -e "\e[1m       source ${BASH_SOURCE} targetname machine distro bblayers presets --update-config\e[0m"
+    print_help_info
+    exit 1
+fi
+
+if [ "$#" -lt "1" ]
+then
+    echo -e "\e[32mUsage:\e[1m ${BASH_SOURCE} targetname\e[0m"
+    echo -e "\e[1m       ${BASH_SOURCE} targetname machine distro bblayers presets --update-config"
+    echo -e "\e[0m"
+    print_help_info
+    return 1
+fi
+
+if [ "$#" -gt "1" ] && [ "${6}" != "--update-config" ]; then
+    echo -e "\e[32mUse only the target argument:\e[0m"
+    echo -e "\e[1m ${BASH_SOURCE} ${1}\e[0m"
+    echo -e "\e[32mOr specify the missing parameters:\e[0m"
+    echo -e "\e[1m ${BASH_SOURCE} ${1} machine(${2}) distro(${3}) bblayers(${4}) presets(${5}) --update-config"
+    echo -e "\e[0m"
+    print_help_info
+    return 1
+fi
+
+test -d builds || mkdir builds
+
+if [ "${6}" = "--update-config" ]; then
+    if test -d "builds/${TARGET}/conf"; then
+        test -d "${OLDCONFSDIR}" || mkdir "${OLDCONFSDIR}"
+        mv "builds/${TARGET}/conf" "${OLDCONFSDIR}/${CONFBACKNAME}"
+        echo "Backuped current config to oldconfs/${CONFBACKNAME}"
+        echo "Resetting build config at conf/"
+    fi
+fi
+
+OEROOT="${BSPDIR}/sources/poky"
+if [ -f ${TEMPLATECONF}/poky.path ]; then
+    OEROOT="${BSPDIR}/$(cat ${TEMPLATECONF}/poky.path)"
+fi
+
+OESCRIPT="${OEROOT}/oe-init-build-env"
+if ! test -x "${OESCRIPT}"; then
+    echo "ERROR: Either repositories are not updated correctly or script not sourced from the topdir."
+    echo "Please see README file."
+    return 1
+fi
+
+# Variables that need to be passed to the poky script.
+export OEROOT
+export TEMPLATECONF
+export BASH_SOURCE="${OESCRIPT}"
+source "${OESCRIPT}" "${BSPDIR}/builds/${TARGET}"
+
+# cp include conf files
+if [ "${6}" = "--update-config" ]; then
+    cp -a ${TEMPLATECONF}/include ${BUILDDIR}/conf/
+    cp -a ${TEMPLATECONF}/presets ${BUILDDIR}/conf/
+    cp -a ${TEMPLATECONF}/bblayers/bblayers.conf.${BBLAYERS} ${BUILDDIR}/conf/bblayers.conf
+
+    sed -i "s|##MACHINE##|${MACHINE}|g"  "${BUILDDIR}/conf/local.conf"
+    sed -i "s|##DISTRO##|${DISTRO}|g"    "${BUILDDIR}/conf/local.conf"
+    sed -i "s|##PRESETS##|${PRESETS}|g"  "${BUILDDIR}/conf/local.conf"
+
+    if test -d "conf"; then
+        if test -d "../../${OLDCONFSDIR}"; then
+            echo "Changes in the conf/"
+            diff -ur "../../${OLDCONFSDIR}/${CONFBACKNAME}" "conf" 2>&1 || true
+        fi
+    fi
+fi
+
+export PATH=$PATH:$BSPDIR/sources/${METANAME}/scripts
+
+umask 002

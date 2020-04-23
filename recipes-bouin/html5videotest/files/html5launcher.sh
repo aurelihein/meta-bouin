@@ -17,12 +17,13 @@ else
     #export WPE_DISPLAY_FPS=1
     export WAYLAND_DISPLAY="wayland-0"
     export XDG_RUNTIME_DIR="/run/user/0"
-    if [ -e /tmp/weston_export.sh ]; then
-        source /tmp/weston_export.sh
-    else
-        echo "Warning /tmp/weston_export.sh does not exist"
+    if [ ! -d ${XDG_RUNTIME_DIR} ]; then
+        if [ -e /tmp/weston_export.sh ]; then
+            source /tmp/weston_export.sh
+        else
+            echo "Warning /tmp/weston_export.sh does not exist" >&2
+        fi
     fi
     export COG_PLATFORM_FDO_VIEW_FULLSCREEN=1
-    echo "First open a weston terminal on the board, write down the values of this variables and then export the same values to this variables from the ssh terminal"
     cog --platform=fdo http://localhost/page.html
 fi

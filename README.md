@@ -3,22 +3,7 @@ meta-bouin Yocto Layer
 
 ## Introduction ##
 
-This layer is intended to provide information about raspberry pi
-development firmware.
-
-There is several interesting branches :
-*master : support web browser, kiosk mode support hardware acceleration
-->WPE : https://www.igalia.com/wpe/  -  https://webkit.org/wpe/
-
-*crypto : if you want to try out minning crypto money : https://github.com/aurelihein/meta-bouin/tree/crypto/
-->cpuminer
-->bitmark
-->verge
-*video : if you want to try out video : https://github.com/aurelihein/meta-bouin/tree/video/
-->motion
-->motioneye
-*webkit-wpe : if you want to try wpe webkit : https://webkit.org/wpe/
-*initialenv : which is the starting point of a new branch
+This is a meta that take advantage of the WPEwebkit under various platform
 
 ## Build Instructions ##
 
@@ -26,9 +11,9 @@ Building the firmware for rpi is pretty easy.
 
 1. First of all create the yocto repository :
 
-`mkdir zeus-rpi3-wpe-rdk`
+`mkdir zeus-rpi3-wpe`
 
-`cd zeus-rpi3-wpe-rdk`
+`cd zeus-rpi3-wpe`
 
 2. Download the needed metas thanks to repo :
 
@@ -42,21 +27,27 @@ the latest tested one :
 
 `repo sync --force-sync`
 
-3. Configure with the needed machine
+3. Configure with the needed machine and config 
 
-`export TEMPLATECONF="$(pwd)/sources/meta-bouin/confs/conf-rpi" && export MACHINE="raspberrypi3-64-mesa" && export DISTRO="bouin" && . ./sources/poky/oe-init-build-env build`
+    * fdo mode :
+
+    `source setup-environment build_rpi3_64-mesa-fdo raspberrypi3-64-mesa bouin rpi rpi3_64-fdo --update-config`
+
+    * rdk mode (TODO) :
+
+    `source setup-environment build_rpi3_64-mesa-rdk raspberrypi3-64-mesa bouin rpi rpi3_64-rdk --update-config`
 
 4. Run the build
 
-`bitbake rpi-browser-image`
+`bitbake demo-browser-image`
 
 ## Installing the wic image ##
 
 From the build directory :
 
-1.Rpi3 : `export SDCARD_IMAGE=build/tmp/deploy/images/raspberrypi3-64-mesa/rpi-browser-image-raspberrypi3-64-mesa.wic`
+1.Rpi3 : `export SDCARD_IMAGE=tmp/deploy/images/raspberrypi3-64-mesa/demo-browser-image-raspberrypi3-64-mesa.wic`
 
-2.Sdcard place : export it : `export SDCARD_SLOT=/dev/foo` and check with `lsblk ${SDCARD_SLOT}`
+2.Sdcard path : export it : `export SDCARD_SLOT=/dev/foo` and check with `lsblk ${SDCARD_SLOT}`
 
 where `/dev/foo` might be `/dev/sde`, or whatever is appropriate for your system).
 
@@ -68,9 +59,9 @@ The image will be burned to SD, erasing anything that might have already been th
 
 From the build directory :
 
-1.Rpi3 : `export GZ_SDCARD_IMAGE=build/tmp/deploy/images/raspberrypi3-64-mesa/rpi-browser-image-raspberrypi3-64-mesa.wic.gz`
+1.Rpi3 : `export GZ_SDCARD_IMAGE=tmp/deploy/images/raspberrypi3-64-mesa/demo-browser-image-raspberrypi3-64-mesa.wic.gz`
 
-2.Sdcard place : export it : `export SDCARD_SLOT=/dev/foo` and check with `lsblk ${SDCARD_SLOT}`
+2.Sdcard path : export it : `export SDCARD_SLOT=/dev/foo` and check with `lsblk ${SDCARD_SLOT}`
 
 where `/dev/foo` might be `/dev/sde`, or whatever is appropriate for your system).
 
@@ -91,3 +82,9 @@ git clone -b zeus git://git.yoctoproject.org/meta-raspberrypi sources/meta-raspb
 git clone -b master git://github.com/Igalia/meta-webkit sources/meta-webkit
 
 git clone -b zeus https://git.yoctoproject.org/git/poky sources/poky
+
+## Known Issues ##
+
+For some reason wpewebkit try to use ${HOME}/.ccache folder, to avoid any problem you can do the following command before the command `source ...` :
+
+`export HOME=/tmp/hometmp`
