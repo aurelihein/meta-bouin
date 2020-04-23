@@ -2,7 +2,7 @@ SUMMARY = "A demo image for WPE browser support"
 inherit core-image
 
 LICENSE = "BOUIN-Proprietary"
-LIC_FILES_CHKSUM = "file://${LAYER_LICENSES}/BOUIN-Proprietary;md5=3cfa1f23f08d4958b1b6041eddb2580d"
+LIC_FILES_CHKSUM = "file://${LAYER_LICENSES}/BOUIN-Proprietary;md5=f9b4c55261d4b2bbe10220540f0bbb21"
 
 EXTRA_IMAGE_FEATURES="debug-tweaks"
 IMAGE_FEATURES += "hwcodecs"
