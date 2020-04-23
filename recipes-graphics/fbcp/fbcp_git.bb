@@ -1,6 +1,7 @@
 DESCRIPTION = "This program used for copy primary framebuffer to secondary \
 framebuffer (eg. FBTFT)"
-LICENSE = "CLOSED"
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=725f991a1cc322aa7a0cd3a2016621c4"
 
 COMPATIBLE_MACHINE = "raspberrypi"
 
