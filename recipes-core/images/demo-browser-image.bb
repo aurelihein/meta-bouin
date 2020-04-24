@@ -1,14 +1,9 @@
 SUMMARY = "A demo image for WPE browser support"
-inherit core-image
 
-LICENSE = "BOUIN-Proprietary"
-LIC_FILES_CHKSUM = "file://${LAYER_LICENSES}/BOUIN-Proprietary;md5=f9b4c55261d4b2bbe10220540f0bbb21"
+require recipes-core/images/bouin-image-base.bb
 
 EXTRA_IMAGE_FEATURES="debug-tweaks"
 IMAGE_FEATURES += "hwcodecs"
-
-IMAGE_LINGUAS = " "
-#IMAGE_LINGUAS = " en-us en-gb "
 
 IMAGE_INSTALL += "\
     kernel-modules \
