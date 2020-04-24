@@ -83,6 +83,38 @@ git clone -b master git://github.com/Igalia/meta-webkit sources/meta-webkit
 
 git clone -b zeus https://git.yoctoproject.org/git/poky sources/poky
 
+## Extra ##
+
+Before launching the bitbake command you can add some parameters :
+
+`BB_EXTRA_IMAGE_INSTALL` : You can add extra component to the image built
+
+`BB_RMWORK` : You can ask to rmwork
+
+`BB_RMWORK_EXCLUDE` : In case of enabled rmwork you can exclude some recipes
+
+`BUILDID` : BUILDID will be shown into /etc/build file
+
+̀`BB_IMAGE_FSTYPES` : Replace default value "ext4 wic.gz"
+
+Then you need to export it with : `BB_ENV_EXTRAWHITE`
+
+Examples :
+
+```
+export BB_ENV_EXTRAWHITE=""
+export BB_EXTRA_IMAGE_INSTALL="git"
+export BB_ENV_EXTRAWHITE="${BB_ENV_EXTRAWHITE} BB_EXTRA_IMAGE_INSTALL"
+export BB_RMWORK="True"
+export BB_ENV_EXTRAWHITE="${BB_ENV_EXTRAWHITE} BB_RMWORK"
+export BB_RMWORK_EXCLUDE="demo-browser-image"
+export BB_ENV_EXTRAWHITE="${BB_ENV_EXTRAWHITE} BB_RMWORK_EXCLUDE"
+export BUILDID="Jenkins#10"
+export BB_ENV_EXTRAWHITE="${BB_ENV_EXTRAWHITE} BUILDID"
+export BB_IMAGE_FSTYPES="ext3 wic"
+export BB_ENV_EXTRAWHITE="${BB_ENV_EXTRAWHITE} BB_IMAGE_FSTYPES"
+```
+
 ## Known Issues ##
 
 For some reason wpewebkit try to use ${HOME}/.ccache folder, to avoid any problem you can do the following command before the command `source ...` :
