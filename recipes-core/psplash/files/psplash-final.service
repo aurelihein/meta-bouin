@@ -2,7 +2,9 @@
 Description=Show Psplash Final Screen
 After=getty@tty1.service display-manager.service psplash-start.service
 Before=systemd-reboot.service systemd-halt.service systemd-poweroff.service
+ConditionKernelCommandLine=!psplash.enable=0
 DefaultDependencies=no
+
 
 [Service]
 Environment=TMPDIR=/run

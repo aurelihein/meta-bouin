@@ -2,6 +2,7 @@
 Description=Starts Psplash Boot screen
 Wants=systemd-vconsole-setup.service
 After=systemd-vconsole-setup.service systemd-udev-trigger.service systemd-udevd.service
+ConditionKernelCommandLine=!psplash.enable=0
 DefaultDependencies=no
 
 [Service]
