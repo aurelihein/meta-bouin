@@ -6,8 +6,8 @@
     <remote fetch="git://git.yoctoproject.org/" name="rpi"/>
     <remote fetch="git://github.com" name="github"/>
 
-    <project remote="github" revision="53a9dde383dd33f6b9c8c768c81be0aad555de85" name="aurelihein/meta-bouin.git" path="sources/meta-bouin">
-        <copyfile src="rpi-bouin-init-build-env" dest="rpi-bouin-init-build-env" />
+    <project remote="github" revision="7b7b2c6519b863032291f1adef92957ab3837849" name="aurelihein/meta-bouin.git" path="sources/meta-bouin">
+        <copyfile src="scripts/setup-environment" dest="setup-environment" />
         <copyfile src="README.md" dest="README.md" />
     </project>
     <project remote="github" revision="bf562ab7bb4dd68e486c71be6ebcf9d872f63b33" name="OSSystems/meta-gstreamer1.0.git" path="sources/meta-gstreamer1.0"/>
