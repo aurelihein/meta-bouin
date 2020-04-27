@@ -1,6 +1,6 @@
 SUMMARY = "fdk-aac package provides the Fraunhofer FDK AAC library"
 LICENSE = "FDK_AAC_Codec_Library_for_Android"
-LIC_FILES_CHKSUM = "file://NOTICE;beginline=1;endline=20;md5=047e46453be4812e5a7f22881ce2edba"
+LIC_FILES_CHKSUM = "file://${LAYER_LICENSES}/FDK_AAC_Codec_Library_for_Android;md5=82cc3a3051fa83300844515aa0944374"
 
 SRC_URI = "https://downloads.sourceforge.net/opencore-amr/fdk-aac-2.0.1.tar.gz"
 
